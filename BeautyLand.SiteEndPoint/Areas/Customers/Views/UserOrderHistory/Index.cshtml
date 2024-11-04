@@ -1,0 +1,414 @@
+﻿@using BeautyLand.Subscription.DateTimeExtensions;
+@using BeautyLand.Subscription.EnumExtensions;
+@using BeautyLand.Domain.Order;
+@using BeautyLand.Application.Services.Site.Orders.GetOrderDetail;
+@model List<OrderHistoryDto>
+@{
+    ViewData["Title"] = " تاریخچه سفارشات";
+    Layout = "~/Views/Shared/_LayoutCustomerPanel.cshtml";
+    var model = Model;
+}
+@{ model = model.Where(p => p.PaymentStatus == PaymentStatus.Paid).ToList();}
+@if (model.Count > 0)
+{
+    <section class="shadow-around p-3">
+        <div class="d-none d-sm-block">
+            <ul class="nav nav-tabs" id="orders-tab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link active" id="wait-for-payment-tab" data-toggle="tab" href="#wait-for-payment" role="tab" aria-controls="wait-for-payment" aria-selected="true">
+                        در انتظار پرداخت
+                        <span class="badge badge-secondary">
+                            @{
+                                var filteredWaitingforPayment = model.Where(p => p.OrderStatus == OrderStatus.WaitingforPayment).ToList();
+
+                                filteredWaitingforPayment.Sum(p => p.Quantity);
+                                int waitingforPaymentCount = filteredWaitingforPayment.Count;
+                            }
+
+                            @if (waitingforPaymentCount > 0)
+                            {
+                                @waitingforPaymentCount
+                            }
+
+                            else
+                            {
+                                waitingforPaymentCount = 0;
+                            }
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="pain-in-progress-tab" data-toggle="tab" href="#pain-in-progress" role="tab" aria-controls="pain-in-progress" aria-selected="false">
+                        در حال پردازش
+                        <span class="badge badge-secondary">
+                            @{
+                                var filteredProcessing = model.Where(p => p.OrderStatus == OrderStatus.Processing).ToList();
+
+                                filteredProcessing.Sum(p => p.Quantity);
+                                int processingCount = filteredProcessing.Count;
+                            }
+
+                            @if (processingCount > 0)
+                            {
+                                @processingCount
+                            }
+
+                            else
+                            {
+                                processingCount = 0;
+                            }
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="delivered-tab" data-toggle="tab" href="#delivered" role="tab" aria-controls="delivered" aria-selected="false">
+                        تحویل داده شده
+                        <span class="badge badge-secondary">
+                            @{
+                                var filteredDelivered = model.Where(p => p.OrderStatus == OrderStatus.Delivered).ToList();
+
+                                filteredDelivered.Sum(p => p.Quantity);
+                                int deliveredCount = filteredDelivered.Count;
+                            }
+
+                            @if (deliveredCount > 0)
+                            {
+                                @deliveredCount
+                            }
+
+                            else
+                            {
+                                deliveredCount = 0;
+                            }
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="returned-tab" data-toggle="tab" href="#returned" role="tab" aria-controls="returned" aria-selected="false">
+                        مرجوعی
+                        <span class="badge badge-secondary">
+                            @{
+                                var filteredReturned = model.Where(p => p.OrderStatus == OrderStatus.Returned).ToList();
+
+                                filteredReturned.Sum(p => p.Quantity);
+                                int returnedCount = filteredReturned.Count;
+                            }
+
+                            @if (returnedCount > 0)
+                            {
+                                @returnedCount
+                            }
+
+                            else
+                            {
+                                returnedCount = 0;
+                            }
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="canceled-tab" data-toggle="tab" href="#canceled" role="tab" aria-controls="canceled" aria-selected="false">
+                        لغو شده
+                        <span class="badge badge-secondary">
+                            @{
+                                var filteredCancelled = model.Where(p => p.OrderStatus == OrderStatus.Cancelled).ToList();
+
+                                filteredCancelled.Sum(p => p.Quantity);
+                                int cancelledCount = filteredCancelled.Count;
+                            }
+
+                            @if (cancelledCount > 0)
+                            {
+                                @cancelledCount
+                            }
+
+                            else
+                            {
+                                cancelledCount = 0;
+                            }
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="d-sm-none tab-responsive-order-list">
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle btn-block" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    لیست سفارشات بر اساس
+                </button>
+                <div class="dropdown-menu shadow-around w-100" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" data-toggle="tab" href="#wait-for-payment" role="tab" aria-controls="wait-for-payment" aria-selected="true">
+                        در
+                        انتظار پرداخت
+                    </a>
+                    <a class="dropdown-item" data-toggle="tab" href="#pain-in-progress" role="tab" aria-controls="pain-in-progress" aria-selected="false">
+                        در
+                        حال پردازش
+                    </a>
+                    <a class="dropdown-item" data-toggle="tab" href="#delivered" role="tab" aria-controls="delivered" aria-selected="false">تحویل داده شده</a>
+                    <a class="dropdown-item" data-toggle="tab" href="#returned" role="tab" aria-controls="returned" aria-selected="false">مرجوعی</a>
+                    <a class="dropdown-item" data-toggle="tab" href="#canceled" role="tab" aria-controls="canceled" aria-selected="false">لغو شده</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="orders-tab">
+            <div class="tab-pane fade show active" id="wait-for-payment" role="tabpanel" aria-labelledby="wait-for-payment-tab">
+                <section class="table--order shadow-around mt-4">
+                    <div class="table-responsive">
+                        @{ model = Model;}
+                        @{model = model.Where(p => p.OrderStatus == OrderStatus.WaitingforPayment).ToList(); }
+                        @if (model.Count > 0)
+                        {
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>شماره سفارش</th>
+                                        <th>تاریخ ثبت سفارش</th>
+                                        <th>مبلغ قابل پرداخت</th>
+                                        <th>وضعیت </th>
+                                        <th>عملیات پرداخت</th>
+                                        <th>محصولات این سفارش</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in model)
+                                    {
+                                        <tr>
+                                            <td class="order-code">BeautyLand-@item.Id</td>
+                                            <td>@item.CreateDate.ToShamsi()</td>
+                                            <td>@item.Price.ToString("n0")تومان</td>
+                                            <td>@item.OrderStatus.GetDescription()</td>
+                                            <td>@item.PaymentStatus.GetDescription()</td>
+                                            <td class="order-detail-link">
+                                                <a href="/Customers/UserOrderDetail/Index?orderHistoryId=@item.Id">
+                                                    <i class="far fa-chevron-left"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                        else
+                        {
+                            <div class="empty-box">
+                                <div class="icon">
+                                    <i class="fal fa-times-circle"></i>
+                                </div>
+                                <div class="message">
+                                    <p>سفارشی برای نمایش وجود ندارد</p>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </section>
+            </div>
+            <div class="tab-pane fade" id="pain-in-progress" role="tabpanel" aria-labelledby="pain-in-progress-tab">
+                <section class="table--order shadow-around mt-4">
+                    <div class="table-responsive">
+                        @{ model = Model;}
+                        @{model = model.Where(p => p.OrderStatus == OrderStatus.Processing).ToList(); }
+                        @if (model.Count > 0)
+                        {
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>شماره سفارش</th>
+                                        <th>تاریخ ثبت سفارش</th>
+                                        <th>مبلغ قابل پرداخت</th>
+                                        <th>وضعیت </th>
+                                        <th>عملیات پرداخت</th>
+                                        <th>محصولات این سفارش</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in model)
+                                    {
+                                        <tr>
+                                            <td class="order-code">BeautyLand-@item.Id</td>
+                                            <td>@item.CreateDate.ToShamsi()</td>
+                                            <td>@item.Price.ToString("n0")تومان</td>
+                                            <td>@item.OrderStatus.GetDescription()</td>
+                                            <td>@item.PaymentStatus.GetDescription()</td>
+                                            <td class="order-detail-link">
+                                                <a href="/Customers/UserOrderDetail/Index?orderHistoryId=@item.Id">
+                                                    <i class="far fa-chevron-left"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                        else
+                        {
+                            <div class="empty-box">
+                                <div class="icon">
+                                    <i class="fal fa-times-circle"></i>
+                                </div>
+                                <div class="message">
+                                    <p>سفارشی برای نمایش وجود ندارد</p>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </section>
+            </div>
+            <div class="tab-pane fade" id="delivered" role="tabpanel" aria-labelledby="delivered-tab">
+                <section class="table--order shadow-around mt-4">
+                    <div class="table-responsive">
+                        @{ model = Model;}
+                        @{model = model.Where(p => p.OrderStatus == OrderStatus.Delivered).ToList(); }
+                        @if (model.Count > 0)
+                        {
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>شماره سفارش</th>
+                                        <th>تاریخ ثبت سفارش</th>
+                                        <th>مبلغ قابل پرداخت</th>
+                                        <th>وضعیت </th>
+                                        <th>عملیات پرداخت</th>
+                                        <th>محصولات این سفارش</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in model)
+                                    {
+                                        <tr>
+                                            <td class="order-code">BeautyLand-@item.Id</td>
+                                            <td>@item.CreateDate.ToShamsi()</td>
+                                            <td>@item.Price.ToString("n0")تومان</td>
+                                            <td>@item.OrderStatus.GetDescription()</td>
+                                            <td>@item.PaymentStatus.GetDescription()</td>
+                                            <td class="order-detail-link">
+                                              <a href="/Customers/UserOrderDetail/Index?orderHistoryId=@item.Id">
+                                                    <i class="far fa-chevron-left"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                        else
+                        {
+                            <div class="empty-box">
+                                <div class="icon">
+                                    <i class="fal fa-times-circle"></i>
+                                </div>
+                                <div class="message">
+                                    <p>سفارشی برای نمایش وجود ندارد</p>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </section>
+            </div>
+            <div class="tab-pane fade" id="returned" role="tabpanel" aria-labelledby="returned-tab">
+                <section class="table--order shadow-around mt-4">
+                    <div class="table-responsive">
+                        @{ model = Model;}
+                        @{model = model.Where(p => p.OrderStatus == OrderStatus.Returned).ToList(); }
+                        @if (model.Count > 0)
+                        {
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>شماره سفارش</th>
+                                        <th>تاریخ ثبت سفارش</th>
+                                        <th>مبلغ قابل پرداخت</th>
+                                        <th>وضعیت </th>
+                                        <th>عملیات پرداخت</th>
+                                        <th>محصولات این سفارش</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in model)
+                                    {
+                                        <tr>
+                                            <td class="order-code">BeautyLand-@item.Id</td>
+                                            <td>@item.CreateDate.ToShamsi()</td>
+                                            <td>@item.Price.ToString("n0")تومان</td>
+                                            <td>@item.OrderStatus.GetDescription()</td>
+                                            <td>@item.PaymentStatus.GetDescription()</td>
+                                            <td class="order-detail-link">
+                                                <a href="/Customers/UserOrderDetail/Index?orderHistoryId=@item.Id">
+                                                    <i class="far fa-chevron-left"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                        else
+                        {
+                            <div class="empty-box">
+                                <div class="icon">
+                                    <i class="fal fa-times-circle"></i>
+                                </div>
+                                <div class="message">
+                                    <p>سفارشی برای نمایش وجود ندارد</p>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </section>
+            </div>
+            <div class="tab-pane fade" id="canceled" role="tabpanel" aria-labelledby="canceled-tab">
+                <section class="table--order shadow-around mt-4">
+                    <div class="table-responsive">
+                        @{ model = Model;}
+                        @{model = model.Where(p => p.OrderStatus == OrderStatus.Cancelled).ToList(); }
+                        @if (model.Count > 0)
+                        {
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>شماره سفارش</th>
+                                        <th>تاریخ ثبت سفارش</th>
+                                        <th>مبلغ قابل پرداخت</th>
+                                        <th>وضعیت </th>
+                                        <th>عملیات پرداخت</th>
+                                        <th>محصولات این سفارش</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in model)
+                                    {
+                                        <tr>
+                                            <td class="order-code">BeautyLand-@item.Id</td>
+                                            <td>@item.CreateDate.ToShamsi()</td>
+                                            <td>@item.Price.ToString("n0")تومان</td>
+                                            <td>@item.OrderStatus.GetDescription()</td>
+                                            <td>@item.PaymentStatus.GetDescription()</td>
+                                            <td class="order-detail-link">
+                                                <a href="/Customers/UserOrderDetail/Index?orderHistoryId=@item.Id">
+                                                    <i class="far fa-chevron-left"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                        else
+                        {
+                            <div class="empty-box">
+                                <div class="icon">
+                                    <i class="fal fa-times-circle"></i>
+                                </div>
+                                <div class="message">
+                                    <p>سفارشی برای نمایش وجود ندارد</p>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </section>
+            </div>
+        </div>
+
+    </section>
+}

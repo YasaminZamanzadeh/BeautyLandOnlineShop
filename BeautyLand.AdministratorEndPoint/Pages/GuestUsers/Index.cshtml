@@ -1,0 +1,393 @@
+﻿@page
+@model BeautyLand.AdministratorEndPoint.Pages.GuestUsers.IndexModel
+@{
+}
+
+<link href="~/Theme/plugins/apex/apexcharts.css" rel="stylesheet" type="text/css">
+<link href="~/Theme/assets/css/dashboard/dash_1.css" rel="stylesheet" type="text/css" />
+<link href="~/Theme/assets/css/scrollspyNav.css" rel="stylesheet" type="text/css" />
+<link href="~/Theme/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="~/Theme/assets/css/plugins.css" rel="stylesheet" type="text/css" />
+<link href="~/Theme/plugins/apex/apexcharts.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="~/Theme/assets/css/widgets/modules-widgets.css">
+<div class="row justify-content-center">
+    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
+        <div class="widget widget-activity-three">
+            <div class="widget-heading">
+                <h5 class="">بازدید امروز</h5>
+            </div>
+            <div class="widget-content">
+                <div class="mt-container mx-auto ps ps--active-y">
+                    <div class="timeline-line">
+                        <div class="item-timeline timeline-new">
+                            <div class="t-dot" data-original-title="" title="">
+                                <div class="t-primary">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="t-content">
+                                <div class="t-uppercontent">
+                                    <h5>بازدید </h5>
+                                    <span class=""> تعداد بازدید</span>
+                                </div>
+                                <p><span>@Model.Model.SingleReport.Views</span></p>
+                                <div class="tags">
+                                    <div class="badge badge-primary">گزارشات</div>
+                                    <div class="badge badge-success">CPanel</div>
+                                    <div class="badge badge-warning">بروزرسانی</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item-timeline timeline-new">
+                            <div class="t-dot" data-original-title="" title="">
+                                <div class="t-success">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail">
+                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                        <polyline points="22,6 12,13 2,6"></polyline>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="t-content">
+                                <div class="t-uppercontent">
+                                    <h5>کاربران مهمان</h5>
+                                    <span class="">تعداد کاربران</span>
+                                </div>
+                                <p><span>@Model.Model.SingleReport.GuestUsers</span></p>
+                                <div class="tags">
+                                    <div class="badge badge-primary">گزارشات</div>
+                                    <div class="badge badge-success">CPanel</div>
+                                    <div class="badge badge-warning">بروزرسانی</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item-timeline timeline-new">
+                            <div class="t-dot" data-original-title="" title="">
+                                <div class="t-danger">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="t-content">
+                                <div class="t-uppercontent">
+                                    <h5>بازدید کاربران مهمان</h5>
+                                    <span class="">بازدید هر کابر مهمان</span>
+                                </div>
+                                <p><span>@Model.Model.SingleReport.ViewsPerGuestUser</span></p>
+                                <div class="tags">
+                                    <div class="badge badge-primary">گزارشات</div>
+                                    <div class="badge badge-success">CPanel</div>
+                                    <div class="badge badge-warning">بروزرسانی</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
+        <div class="widget widget-activity-three">
+            <div class="widget-heading">
+                <h5 class="">همه بازدیدها </h5>
+            </div>
+            <div class="widget-content">
+                <div class="mt-container mx-auto ps ps--active-y">
+                    <div class="timeline-line">
+                        <div class="item-timeline timeline-new">
+                            <div class="t-dot" data-original-title="" title="">
+                                <div class="t-primary">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="t-content">
+                                <div class="t-uppercontent">
+                                    <h5>بازدید </h5>
+                                    <span class=""> تعداد بازدید</span>
+                                </div>
+                                <p><span>@Model.Model.TotalReport.Views</span></p>
+                                <div class="tags">
+                                    <div class="badge badge-primary">گزارشات</div>
+                                    <div class="badge badge-success">CPanel</div>
+                                    <div class="badge badge-warning">بروزرسانی</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item-timeline timeline-new">
+                            <div class="t-dot" data-original-title="" title="">
+                                <div class="t-success">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail">
+                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                        <polyline points="22,6 12,13 2,6"></polyline>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="t-content">
+                                <div class="t-uppercontent">
+                                    <h5>کاربران مهمان</h5>
+                                    <span class="">تعداد کاربران</span>
+                                </div>
+                                <p><span>@Model.Model.TotalReport.GuestUsers</span></p>
+                                <div class="tags">
+                                    <div class="badge badge-primary">گزارشات</div>
+                                    <div class="badge badge-success">CPanel</div>
+                                    <div class="badge badge-warning">بروزرسانی</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item-timeline timeline-new">
+                            <div class="t-dot" data-original-title="" title="">
+                                <div class="t-danger">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="t-content">
+                                <div class="t-uppercontent">
+                                    <h5>بازدید کاربران مهمان</h5>
+                                    <span class="">بازدید هر کابر مهمان</span>
+                                </div>
+                                <p><span>@Model.Model.TotalReport.ViewsPerGuestUser</span></p>
+                                <div class="tags">
+                                    <div class="badge badge-primary">گزارشات</div>
+                                    <div class="badge badge-success">CPanel</div>
+                                    <div class="badge badge-warning">بروزرسانی</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="layout-px-spacing">
+    <div class="row layout-top-spacing">
+        <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+            <div class="widget-content widget-content-area br-6">
+                <div class="table-responsive mb-4 mt-4">
+                    <div id="zero-config_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <div class="dataTables_length" id="zero-config_length">
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div id="zero-config_filter" class="dataTables_filter"> </div>
+                            </div>
+                        </div><div class="row">
+                            <div class="col-sm-12">
+                                <table id="zero-config" class="table table-hover dataTable" style="width: 100%;" role="grid" aria-describedby="zero-config_info">
+                                    <thead>
+                                        <tr role="row"><th class="sorting_asc" tabindex="0" aria-controls="zero-config" rowspan="1" colspan="1" aria-sort="ascending" aria-label="آی پی: activate to sort column descending" style="width: 99px;">آی پی</th><th class="sorting" tabindex="0" aria-controls="zero-config" rowspan="1" colspan="1" aria-label=" شناسه کاربر : activate to sort column ascending" style="width: 230px;"> شناسه کاربر </th><th class="sorting" tabindex="0" aria-controls="zero-config" rowspan="1" colspan="1" aria-label=" سیستم عامل : activate to sort column ascending" style="width: 53px;"> سیستم عامل </th><th class="sorting" tabindex="0" aria-controls="zero-config" rowspan="1" colspan="1" aria-label="مرورگر: activate to sort column ascending" style="width: 50px;">مرورگر</th><th class="sorting" tabindex="0" aria-controls="zero-config" rowspan="1" colspan="1" aria-label=" تاریخ  : activate to sort column ascending" style="width: 110px;"> تاریخ  </th><th class="sorting" tabindex="0" aria-controls="zero-config" rowspan="1" colspan="1" aria-label=" خزنده : activate to sort column ascending" style="width: 102px;"> خزنده </th><th class="no-content sorting" tabindex="0" aria-controls="zero-config" rowspan="1" colspan="1" aria-label=": activate to sort column ascending" style="width: 31px;"></th></tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.Model.RecentReport)
+                                        {
+                                            <tr role="row">
+                                                <td class="sorting_1">@item.Ip</td>
+                                                <td>@item.GuestUserId</td>
+                                                <td>@item.OperatingSytem</td>
+                                                <td>
+                                                    <div class="td-content customer-name">
+                                                        @if (item.Browser.Contains("Chrome"))
+                                                        {
+                                                            <img height="30" width="30" src="~/Icon/chrome.png" />
+                                                        }
+                                                        else if (item.Browser.Contains("Firefox"))
+                                                        {
+                                                            <img height="30" width="30" src="~/Icon/firefox.png" />
+                                                        }
+                                                        else if (item.Browser.Contains("Opera"))
+                                                        {
+                                                            <img height="30" width="30" src="~/Icon/opera.png" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <img height="30" width="30" src="~/Icon/browser.png" />
+                                                        }
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    @{
+                                                        System.Globalization.PersianCalendar persianCalendar = new System.Globalization.PersianCalendar();
+                                                        DateTime gregorianDate = item.CreateDate;
+                                                        int year = persianCalendar.GetYear(gregorianDate);
+                                                        int month = persianCalendar.GetMonth(gregorianDate);
+                                                        int day = persianCalendar.GetDayOfMonth(gregorianDate);
+                                                        string createDate = $"{year}/{month:D2}/{day:D2}";
+                                                    }
+                                                    @createDate
+                                                </td>
+                                                <td>@item.IsSpider</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                    <tfoot>
+
+                                        <tr><th rowspan="1" colspan="1">آی پی</th><th rowspan="1" colspan="1"> شناسه کاربر </th><th rowspan="1" colspan="1"> سیستم عامل </th><th rowspan="1" colspan="1">مرورگر</th><th rowspan="1" colspan="1"> تاریخ  </th><th rowspan="1" colspan="1"> خزنده </th><th rowspan="1" colspan="1"></th></tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div><div class="row">
+                            <div class="col-sm-12 col-md-5">
+                                <div class="dataTables_info" id="zero-config_info" role="status" aria-live="polite">صفحه 1 از 4</div>
+                            </div><div class="col-sm-12 col-md-7">
+                                <div class="dataTables_paginate paging_simple_numbers" id="zero-config_paginate">
+                                    <ul class="pagination"><li class="paginate_button page-item previous disabled" id="zero-config_previous"><a href="#" aria-controls="zero-config" data-dt-idx="0" tabindex="0" class="page-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg></a></li><li class="paginate_button page-item active"><a href="#" aria-controls="zero-config" data-dt-idx="1" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item "><a href="#" aria-controls="zero-config" data-dt-idx="2" tabindex="0" class="page-link">2</a></li><li class="paginate_button page-item "><a href="#" aria-controls="zero-config" data-dt-idx="3" tabindex="0" class="page-link">3</a></li><li class="paginate_button page-item "><a href="#" aria-controls="zero-config" data-dt-idx="4" tabindex="0" class="page-link">4</a></li><li class="paginate_button page-item next" id="zero-config_next"><a href="#" aria-controls="zero-config" data-dt-idx="5" tabindex="0" class="page-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a></li></ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="chartLine" class="col-xl-12 layout-top-spacing layout-spacing">
+            <div class="statbox widget box box-shadow" style="border: 2px solid #3498db; border-radius: 8px; background-color: #ffffff;">
+                <div class="widget-header" style="border-bottom: 1px solid #3498db; padding: 15px;">
+                    <div class="row">
+                        <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                            <h4 style="color: #3498db;">بازدید در 24 ساعت گذشته</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="widget-content widget-content-area" style="padding: 20px;">
+                    <div id="s-lineCurrentDay" class="" style="height: 300px;"></div>
+                </div>
+            </div>
+        </div>
+        <div id="chartLine" class="col-xl-12 layout-top-spacing layout-spacing">
+            <div class="statbox widget box box-shadow" style="border: 2px solid #3498db; border-radius: 8px; background-color: #ffffff;">
+                <div class="widget-header" style="border-bottom: 1px solid #3498db; padding: 15px;">
+                    <div class="row">
+                        <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                            <h4 style="color: #3498db;">بازدید در 30 روز گذشته</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="widget-content widget-content-area" style="padding: 20px;">
+                    <div id="s-linePreviousMonth" class="" style="height: 300px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+
+    <script src="~/Theme/plugins/apex/apexcharts.min.js"></script>
+    <script src="~/Theme/js/dashboard/dash_1.js"></script>
+    <script src="~/Theme/assets/js/scrollspyNav.js"></script>
+
+    <script>
+        var keysCurrentDay = @Html.Raw(Json.Serialize(Model.Model.SingleReport.IllusterationViews.Key));
+        var valuesCurrentDay = @Html.Raw(Json.Serialize(Model.Model.SingleReport.IllusterationViews.Value));
+
+        var slineCurrentDay = {
+            chart: {
+                height: 350,
+                type: 'line',
+                zoom: {
+                    enabled: false
+                },
+                toolbar: {
+                    show: false,
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                curve: 'straight'
+            },
+            series: [{
+                name: "ساعت",
+                data: valuesCurrentDay,
+            }],
+            title: {
+                text: 'بازدید در ساعت',
+                align: 'right',
+                offsetX: -95,
+            },
+            grid: {
+                row: {
+                    colors: ['#f1f2f3', 'transparent'],
+                    opacity: 0.5
+                },
+            },
+            xaxis: {
+                categories: keysCurrentDay,
+            },
+            yaxis: {
+                labels: {
+                    offsetX: -20,
+                }
+            }
+        }
+
+        var chartCurrentDay = new ApexCharts(
+            document.querySelector("#s-lineCurrentDay"),
+            slineCurrentDay
+        );
+
+        chartCurrentDay.render();
+
+        var keysPreviousMonth = @Html.Raw(Json.Serialize(Model.Model.TotalReport.IllusterationViews.Key));
+        var valuesPreviousMonth = @Html.Raw(Json.Serialize(Model.Model.TotalReport.IllusterationViews.Value));
+
+        var slinePreviousMonth = {
+            chart: {
+                height: 350,
+                type: 'line',
+                zoom: {
+                    enabled: false
+                },
+                toolbar: {
+                    show: false,
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                curve: 'straight'
+            },
+            series: [{
+                name: "یک ماه گذشته",
+                data: valuesPreviousMonth,
+            }],
+            title: {
+                text: "بازدید در ماه گذشته",
+                align: 'right',
+                offsetX: -95,
+            },
+            grid: {
+                row: {
+                    colors: ['#f1f2f3', 'transparent'],
+                    opacity: 0.5
+                },
+            },
+            xaxis: {
+                categories: keysPreviousMonth,
+            },
+            yaxis: {
+                labels: {
+                    offsetX: -20,
+                }
+            }
+        }
+        var chartPreviousMonth = new ApexCharts(
+            document.querySelector("#s-linePreviousMonth"),
+            slinePreviousMonth
+        );
+        chartPreviousMonth.render();
+
+    </script>
+}

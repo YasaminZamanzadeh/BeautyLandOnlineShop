@@ -1,0 +1,78 @@
+﻿@page
+@model BeautyLand.AdministratorEndPoint.Pages.Catalogs.Items.IndexModel
+@{
+    var hasPreviousPage = !Model.Model.HasPreviousPage ? "disabled" : "";
+    var hasNextPage = !Model.Model.HasNextPage ? "disabled" : "";
+}
+
+<div class="layout-px-spacing">
+
+    <div class="row layout-top-spacing" id="cancel-row">
+        <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+            <div class="widget-content widget-content-area br-6">
+                <div class="table-responsive mb-4 mt-4">
+                    <div id="multi-column-ordering_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                        <div class="col-sm-12">
+                            <table id="multi-column-ordering" class="table table-hover dataTable" style="width: 100%;" role="grid" aria-describedby="multi-column-ordering_info">
+                                <thead>
+                                    <tr role="row"><th class="sorting_asc" tabindex="0" aria-controls="multi-column-ordering" rowspan="1" colspan="1" aria-sort="ascending" aria-label="نام محصول: activate to sort column descending" style="width: 110px;">نام محصول</th><th class="sorting" tabindex="0" aria-controls="multi-column-ordering" rowspan="1" colspan="1" aria-label=" برند  : activate to sort column ascending" style="width: 53px;"> برند  </th><th class="sorting" tabindex="0" aria-controls="multi-column-ordering" rowspan="1" colspan="1" aria-label=" دسته بندی : activate to sort column ascending" style="width: 53px;"> دسته بندی </th><th class="sorting" tabindex="0" aria-controls="multi-column-ordering" rowspan="1" colspan="1" aria-label="قیمت activate to sort column ascending" style="width: 51px;">قیمت</th><th class="sorting" tabindex="0" aria-controls="multi-column-ordering" rowspan="1" colspan="1" aria-label="حداکثر توان ذخیره در انبار : activate to sort column ascending" style="width: 111px;">حداکثر توان ذخیره در انبار</th><th class="sorting" tabindex="0" aria-controls="multi-column-ordering" rowspan="1" colspan="1" aria-label=" تعداد موجودی : activate to sort column ascending" style="width: 103px;"> تعداد موجودی </th></tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.Model.Model)
+                                    {
+                                        <tr role="row">
+                                            <td class="sorting_1 sorting_2">
+                                                <div class="d-flex">
+                                                    <div class="usr-img-frame mr-2 rounded-circle">
+                                                        <img alt="avatar" class="img-fluid rounded-circle" src="@item.Image">
+                                                    </div>
+                                                    <p class="align-self-center mb-0 admin-name">@item.Name</p>
+                                                </div>
+                                            </td>
+                                            <td>@item.Brand </td>
+                                            <td>@item.Type</td>
+                                            <td>@item.Price</td>
+                                            <td>@item.MaxStockThreshold</td>
+                                            <td>@item.AvailableStock</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                                <tfoot>
+                                    <tr><th rowspan="1" colspan="1">نام محصول</th><th rowspan="1" colspan="1"> برند </th><th rowspan="1" colspan="1"> دسته بندی </th><th rowspan="1" colspan="1">قیمت</th><th rowspan="1" colspan="1">حداکثر توان ذخیره در انبار</th><th rowspan="1" colspan="1">تعداد موجودی</th></tr>
+                                </tfoot>
+                            </table>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-5">
+                            <div class="dataTables_info" id="multi-column-ordering_info" role="status" aria-live="polite">
+                                صفحه 1 از 4
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-7">
+                            <div class="dataTables_paginate paging_simple_numbers" id="multi-column-ordering_paginate">
+                                <ul class="pagination">
+                                    <li class="paginate_button page-item active">
+                                        <a asp-page="Index" asp-route-parentId="@Request.Query["parentId"]" asp-route-pageIndex="@(Model.Model.PageIndex -1)" class="btn btn-default @hasPreviousPage">
+                                            قبلی
+                                        </a>
+                                    </li>
+                                    <li class="paginate_button page-item active"><a href="#" aria-controls="multi-column-ordering" data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
+                                    <li class="paginate_button page-item "><a href="#" aria-controls="multi-column-ordering" data-dt-idx="2" tabindex="0" class="page-link"> 2</a></li>
+                                    <li class="paginate_button page-item "><a href="#" aria-controls="multi-column-ordering" data-dt-idx="3" tabindex="0" class="page-link">3</a> </li>
+                                    <li class="paginate_button page-item "><a href="#" aria-controls="multi-column-ordering" data-dt-idx="4" tabindex="0" class="page-link">4</a></li>
+                                    <li class="paginate_button page-item">
+                                        <a asp-page="Index" asp-route-parentId="@Request.Query["parentId"]" asp-route-pageIndex="@(Model.Model.PageIndex +1)" class="btn btn-default @hasNextPage">
+                                            بعدی
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

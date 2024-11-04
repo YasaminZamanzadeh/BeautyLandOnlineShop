@@ -1,0 +1,118 @@
+﻿@page
+@model BeautyLand.AdministratorEndPoint.Pages.Banners.CreateModel
+@section Links {
+    <link href="~/Sweetalert/sweetalert2.min.css" rel="stylesheet" />
+}
+
+
+<div class="col-lg-12 col-12 layout-spacing">
+    <div class="statbox widget box box-shadow">
+        <div class="widget-header">
+            <div class="row">
+                <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                    <h4> ثبت  بنر جدید  </h4>
+                </div>
+            </div>
+        </div>
+        <div class="widget-content widget-content-area">
+            <form id="createForm" asp-page="create" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group col-md-4 mb-4">
+                    <label asp-for="Model.Name">نام بنر</label>
+                    <input type="text" class="form-control" asp-for="Model.Name">
+                    <span asp-validation-for="Model.Name" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4 mb-4">
+                    <label asp-for="Model.Image">تصویر</label>
+                    <input type="file" class="form-control" name="Image" asp-for="Model.Image">
+                    <span asp-validation-for="Model.Image" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4 mb-4">
+                    <label asp-for="Model.Link">ارجاع به</label>
+                    <input type="text" class="form-control" asp-for="Model.Link">
+                    <span asp-validation-for="Model.Link" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4 mb-4">
+                    <label asp-for="Model.Priority">اولویت</label>
+                    <input type="text" class="form-control" asp-for="Model.Priority">
+                    <span asp-validation-for="Model.Priority" class="text-danger"></span>
+                </div>
+
+                <div class="form-group col-md-4 mb-4">
+                    <label for="isActiveCheckbox">فعال شود؟</label>
+                    <div class="input-group mt-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <div class="n-chk align-self-end">
+                                    <label class="new-control new-checkbox checkbox-danger">
+                                        <input type="checkbox" asp-for="Model.IsActive" class="new-control-input" id="isActiveCheckbox">
+                                        <span class="new-control-indicator"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="text" class="form-control" placeholder="فعال شود؟" aria-label="checkbox">
+                        <span asp-validation-for="Model.IsActive" class="text-danger"></span>
+                    </div>
+                </div>
+
+
+                <div class="form-group col-md-4 mb-4">
+                    <label asp-for="Model.BannerPosition">مکان</label>
+                    <select asp-for="Model.BannerPosition" class="form-control" asp-items="@Html.GetEnumSelectList<Domain.Banner.BannerPosition>()"></select>
+                    <span asp-validation-for="Model.BannerPosition" class="text-danger"></span>
+                </div>
+                <div>
+                    <input type="submit" name="time" value="ثبت" class="btn btn-primary">
+                    <a asp-page="index" class="btn btn-info">برگشت به لیست</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="~/Sweetalert/sweetalert2.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js">
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        $(document).ready(function () {
+            $("#createForm").on("submit", function (e) {
+                e.preventDefault(); 
+
+                var formData = new FormData(this); 
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Page("Create")',
+                    data: formData,
+                    processData: false, 
+                    contentType: false, 
+                    success: function (response) {
+                        Swal.fire({
+                            title: 'موفق!',
+                            text: ' با موفقیت ثبت شد',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = '@Url.Page("Index")';
+                            }
+                        });
+                    },
+                    error: function (xhr) {
+                        Swal.fire({
+                            title: 'هشدار!',
+                            text: 'ثبت نشد' + (xhr.responseText || ''),
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}
